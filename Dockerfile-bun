@@ -1,0 +1,54 @@
+# use the official Bun image
+# see all versions at https://hub.docker.com/r/oven/bun/tags
+FROM oven/bun:latest AS base
+
+# install dependencies into temp directory
+# this will cache them and speed up future builds
+FROM base AS install
+WORKDIR /app
+COPY bun.lockb .
+COPY package.json .
+
+RUN bun install
+
+COPY src ./src
+COPY prisma ./prisma
+ENV DATABASE_URL="file:/data/db.sqlite"
+# RUN mkdir -p /temp/dev
+# COPY package.json bun.lockb /temp/dev/
+# RUN cd /temp/dev && bun i --frozen-lockfile
+
+# # install with --production (exclude devDependencies)
+# RUN mkdir -p /temp/prod
+# COPY package.json bun.lockb /temp/prod/
+# RUN cd /temp/prod && bun i --frozen-lockfile --production
+
+# copy node_modules from temp directory
+# then copy all (non-ignored) project files into the image
+# FROM install AS prerelease
+# COPY --from=install /temp/dev/node_modules node_modules
+# COPY . .
+
+# # [optional] tests & build
+# ENV NODE_ENV=production
+# # RUN bun test
+# RUN bun run build
+
+# # copy production dependencies and source code into final image
+# FROM base AS release
+# COPY --from=install /app/public ./public
+# COPY --from=install /app/next.config.mjs ./
+# COPY --from=install /app/package.json ./package.json
+# COPY --from=install /app/prisma ./prisma
+# COPY --from=install /temp/prod/node_modules node_modules
+# COPY --from=prerelease /usr/src/app/index.ts .
+# COPY --from=prerelease /usr/src/app/package.json .
+
+# run the app
+# USER bun
+EXPOSE 3000/tcp
+
+# needed?
+ENV PORT 3000
+
+ENTRYPOINT [ "bun", "run", "start-docker" ]

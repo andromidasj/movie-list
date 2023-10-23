@@ -1,0 +1,9 @@
+{
+  "name": "Movie List",
+  "short_name": "Movie List",
+  "start_url": "/",
+  "scope": "/",
+  "theme_color": "#000",
+  "background_color": "#0f172a",
+  "display": "standalone"
+}

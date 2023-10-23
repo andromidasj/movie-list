@@ -1,0 +1,34 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model List {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @unique
+  color     String   @default("blue")
+  movies    Movie[]
+}
+
+model Movie {
+  id          Int       @id @default(autoincrement())
+  plexId      String?
+  title       String
+  year        Int
+  inList      Boolean
+  listedDate  DateTime?
+  watched     Boolean
+  watchedDate DateTime?
+  poster      String
+  runtime     Int       @default(0)
+  tmdbId      Int?
+  imdbId      String?
+  listId      Int
+  List        List      @relation(fields: [listId], references: [id])
+}
