@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  REPO: ${{ secrets.DOCKER_USERNAME }}/plex-movie-list
+  REPO: joshandromidas/movie-list
 
 jobs:
   build-push-to-docker:
@@ -27,12 +27,12 @@ jobs:
         id: meta
         uses: docker/metadata-action@98669ae865ea3cffbcbaa878cf57c20bbf1c6c38
         with:
-          images: joshandromidas/plex-movie-list
+          images: joshandromidas/movie-list
 
       - name: Build and push Docker image
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: .
           push: true
-          tags: joshandromidas/plex-movie-list:latest
+          tags: joshandromidas/movie-list:latest
           labels: ${{ steps.meta.outputs.labels }}
