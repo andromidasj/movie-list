@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env:
-  REPO: joshandromidas/movie-list
+  REPO: ${{ secrets.DOCKER_USERNAME }}/movie-list
 
 jobs:
   build-push-to-docker:
