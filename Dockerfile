@@ -22,5 +22,8 @@ COPY --from=build /app/.next /app/.next
 
 ENV DATABASE_URL=file:/data/db.sqlite
 
+RUN chown -R node:node /app
+RUN chmod 755 /app
+
 EXPOSE 3000
 CMD [ "pnpm", "start-docker" ]
