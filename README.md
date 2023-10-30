@@ -8,25 +8,19 @@ This is a simple movie list app that allows you to track the movies you've watch
 - [x] Slick mobile interface
 - [x] Self-hostable via Docker
 
-<table>
-  <tr>
-    <td>
-      <img align=top src="https://github.com/andromidasj/movie-list/assets/66661368/6826cb30-80ab-4236-b9de-a823ee0ab28a"/>
-    </td>
-    <td>
-      <img align=top src="https://github.com/andromidasj/movie-list/assets/66661368/890ac1d4-76b6-4ccb-9965-15742516ece8"/>
-    </td>
-    <td>
-      <img align=top src="https://github.com/andromidasj/movie-list/assets/66661368/c2b00170-1b54-4094-b292-c61efea4b645"/>
-    </td>
-    <td>
-      <img align=top src="https://github.com/andromidasj/movie-list/assets/66661368/60d484d5-cca5-43cd-8ed5-55e83cc318a2"/>
-    </td>
-    <td>
-      <img align=top src="https://github.com/andromidasj/movie-list/assets/66661368/5c7f6e69-4ad8-44ab-bb86-7addb36ea188"/>
-    </td>
-  </tr>
-</table>
+<div align="center">
+  <img src="https://github.com/andromidasj/movie-list/assets/66661368/ae3c677b-3cf4-4b55-86f7-bd0e4c2e8cb8" width="19%" >
+  <img src="https://github.com/andromidasj/movie-list/assets/66661368/ef45b5ef-268b-4ca3-b4fb-27af91dcece1" width="19%" >
+  <img src="https://github.com/andromidasj/movie-list/assets/66661368/aba80424-c7eb-40ad-ba21-41fccebac240" width="19%" >
+  <img src="https://github.com/andromidasj/movie-list/assets/66661368/753982f6-ed2b-4f54-b027-2bf672f074db" width="19%" >
+  <img src="https://github.com/andromidasj/movie-list/assets/66661368/7a53c699-fb6d-4b74-aa56-27065d7bc53c" width="19%" >
+</div>
+
+![11317353-DCFD-499F-A695-CDFEDD4CC150_1_101_o](https://github.com/andromidasj/movie-list/assets/66661368/ae3c677b-3cf4-4b55-86f7-bd0e4c2e8cb8)
+![919AE9A5-2B49-4D20-9B0E-B6572D3B887B_1_101_o](https://github.com/andromidasj/movie-list/assets/66661368/ef45b5ef-268b-4ca3-b4fb-27af91dcece1)
+![95E3E04E-1D70-4D34-AD96-6DEC95A9C753_1_101_o](https://github.com/andromidasj/movie-list/assets/66661368/aba80424-c7eb-40ad-ba21-41fccebac240)
+![8C0F3F94-2883-4788-B1CD-74D1CA1EFF80_1_101_o](https://github.com/andromidasj/movie-list/assets/66661368/753982f6-ed2b-4f54-b027-2bf672f074db)
+![02E08839-A6FC-4161-9984-56055770C983_1_101_o](https://github.com/andromidasj/movie-list/assets/66661368/7a53c699-fb6d-4b74-aa56-27065d7bc53c)
 
 ## Docker installation
 
