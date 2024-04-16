@@ -9,7 +9,7 @@ export const tmdbMovieSchema = z
         id: z.number().optional(),
         name: z.string().optional(),
         poster_path: z.string().optional(),
-        backdrop_path: z.string().optional(),
+        backdrop_path: z.string().nullable(),
       })
       .nullable(),
     budget: z.number(),
