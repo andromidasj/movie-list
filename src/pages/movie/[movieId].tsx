@@ -1,10 +1,17 @@
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { CalendarIcon, StarIcon } from "@heroicons/react/24/solid";
 import { ScrollArea } from "~/components/ui/scroll-area";
 import { api } from "~/utils/api";
 import { parseRuntime } from "~/utils/parseRuntime";
-import { TMDB_IMAGE_URL } from "consts";
+import { IMDB_MOVIE_URL, TMDB_IMAGE_URL, TMDB_MOVIE_URL } from "consts";
 import dayjs from "dayjs";
 import Head from "next/head";
 import Image from "next/image";
@@ -113,30 +120,73 @@ export default function MovieDetails() {
               ))}
             </div>
 
-            <p className="mb-12">{movie.overview}</p>
+            <p>{movie.overview}</p>
 
-            <EditWatchedStatusButtons listId={listId} movieId={movieId} />
+            <div className="my-8 text-center space-y-4">
+              <EditWatchedStatusButtons listId={listId} movieId={movieId} />
+              <Drawer>
+                <DrawerTrigger className="text-blue-500">
+                  Add to other list...
+                </DrawerTrigger>
+                <DrawerContent>
+                  <DrawerHeader className="sr-only">
+                    <DrawerTitle>Add movie to another list</DrawerTitle>
+                    <DrawerDescription>
+                      Add this movie to another list
+                    </DrawerDescription>
+                  </DrawerHeader>{" "}
+                  <ScrollArea>
+                    <div className="flex flex-col gap-8 py-8 px-4 max-h-[70vh] mb-12">
+                      {lists
+                        .filter((list) => String(list.id) !== listId)
+                        .map((list) => (
+                          <EditWatchedStatusButtons
+                            key={list.id}
+                            listId={String(list.id)}
+                            movieId={movieId}
+                          />
+                        ))}
+                    </div>
+                  </ScrollArea>
+                </DrawerContent>
+              </Drawer>
+            </div>
 
-            <Drawer>
-              <DrawerTrigger className="text-blue-500">
-                Add to other list...
-              </DrawerTrigger>
-              <DrawerContent>
-                <ScrollArea>
-                  <div className="flex flex-col gap-8 py-8 px-4 max-h-[70vh] mb-12">
-                    {lists
-                      .filter((list) => String(list.id) !== listId)
-                      .map((list) => (
-                        <EditWatchedStatusButtons
-                          key={list.id}
-                          listId={String(list.id)}
-                          movieId={movieId}
-                        />
-                      ))}
-                  </div>
-                </ScrollArea>
-              </DrawerContent>
-            </Drawer>
+            <div className="space-y-4">
+              <h2 className="font-bold text-muted-foreground text-center uppercase">
+                Links
+              </h2>
+              <div className="grid grid-cols-2 gap-4 h-14">
+                <a
+                  href={urlJoin(TMDB_MOVIE_URL, String(movie.id))}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="relative bg-black rounded-lg"
+                >
+                  <Image
+                    src="/TMDB_logo.svg"
+                    alt="TMDb Logo"
+                    fill
+                    className="size-full object-contain p-2"
+                  />
+                </a>
+                {!!movie.imdb_id && (
+                  <a
+                    href={urlJoin(IMDB_MOVIE_URL, String(movie.imdb_id))}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="relative bg-black rounded-lg"
+                  >
+                    <Image
+                      src="/IMDB_logo.png"
+                      alt="IMDb Logo"
+                      fill
+                      className="size-full object-contain"
+                    />
+                  </a>
+                )}
+              </div>
+            </div>
 
             {/* <a
               href={movie.publicPagesURL}
