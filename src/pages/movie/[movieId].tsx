@@ -156,7 +156,7 @@ export default function MovieDetails() {
               <h2 className="font-bold text-muted-foreground text-center uppercase">
                 Links
               </h2>
-              <div className="grid grid-cols-2 gap-4 h-14">
+              <div className="grid grid-cols-2 gap-2 h-14">
                 <a
                   href={urlJoin(TMDB_MOVIE_URL, String(movie.id))}
                   target="_blank"

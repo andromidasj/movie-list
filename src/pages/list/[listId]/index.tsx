@@ -197,18 +197,22 @@ export default function List() {
                   </Link>
                 ))}
 
-            {activeTab !== "search" && !!moviesFilteredByOppositeTab.length && (
-              <button
-                className="mt-8 text-center text-sm text-blue-400 col-span-3"
-                onClick={() =>
-                  setActiveTab(activeTab === "watched" ? "toWatch" : "watched")
-                }
-              >
-                {moviesFilteredByOppositeTab.length}{" "}
-                {`movie${moviesFilteredByOppositeTab.length > 1 ? "s" : ""}`} in{" "}
-                {activeTab === "watched" ? "To Watch" : "Watched"}
-              </button>
-            )}
+            {activeTab !== "search" &&
+              !!searchVal &&
+              !!moviesFilteredByOppositeTab.length && (
+                <button
+                  className="mt-8 text-center text-sm text-blue-400 col-span-3"
+                  onClick={() =>
+                    setActiveTab(
+                      activeTab === "watched" ? "toWatch" : "watched"
+                    )
+                  }
+                >
+                  {moviesFilteredByOppositeTab.length}{" "}
+                  {`movie${moviesFilteredByOppositeTab.length > 1 ? "s" : ""}`}{" "}
+                  in {activeTab === "watched" ? "To Watch" : "Watched"}
+                </button>
+              )}
           </div>
         }
 
