@@ -8,15 +8,15 @@ import {
 } from "@/components/ui/drawer";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { CalendarIcon, StarIcon } from "@heroicons/react/24/solid";
-import { ScrollArea } from "~/components/ui/scroll-area";
-import { api } from "~/utils/api";
-import { parseRuntime } from "~/utils/parseRuntime";
 import { IMDB_MOVIE_URL, TMDB_IMAGE_URL, TMDB_MOVIE_URL } from "consts";
 import dayjs from "dayjs";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import urlJoin from "url-join";
+import { ScrollArea } from "~/components/ui/scroll-area";
+import { api } from "~/utils/api";
+import { parseRuntime } from "~/utils/parseRuntime";
 import EditWatchedStatusButtons from "./EditWatchedStatusButtons";
 
 export default function MovieDetails() {
@@ -122,7 +122,7 @@ export default function MovieDetails() {
 
             <p>{movie.overview}</p>
 
-            <div className="my-8 text-center space-y-4">
+            <div className="my-8 space-y-4 text-center">
               <EditWatchedStatusButtons listId={listId} movieId={movieId} />
               <Drawer>
                 <DrawerTrigger className="text-blue-500">
@@ -136,7 +136,7 @@ export default function MovieDetails() {
                     </DrawerDescription>
                   </DrawerHeader>{" "}
                   <ScrollArea>
-                    <div className="flex flex-col gap-8 py-8 px-4 max-h-[70vh] mb-12">
+                    <div className="mb-12 flex max-h-[70vh] flex-col gap-8 px-4 py-8">
                       {lists
                         .filter((list) => String(list.id) !== listId)
                         .map((list) => (
@@ -153,18 +153,18 @@ export default function MovieDetails() {
             </div>
 
             <div className="space-y-4">
-              <h2 className="font-bold text-muted-foreground text-center uppercase">
+              <h2 className="text-center font-bold uppercase text-muted-foreground">
                 Links
               </h2>
-              <div className="grid grid-cols-2 gap-2 h-14">
+              <div className="grid h-14 grid-cols-2 gap-2">
                 <a
                   href={urlJoin(TMDB_MOVIE_URL, String(movie.id))}
                   target="_blank"
                   rel="noreferrer"
-                  className="relative bg-black rounded-lg"
+                  className="relative rounded-lg bg-black"
                 >
                   <Image
-                    src="/TMDB_logo.svg"
+                    src="/TMDB_logo.png"
                     alt="TMDb Logo"
                     fill
                     className="size-full object-contain p-2"
@@ -175,7 +175,7 @@ export default function MovieDetails() {
                     href={urlJoin(IMDB_MOVIE_URL, String(movie.imdb_id))}
                     target="_blank"
                     rel="noreferrer"
-                    className="relative bg-black rounded-lg"
+                    className="relative rounded-lg bg-black"
                   >
                     <Image
                       src="/IMDB_logo.png"
