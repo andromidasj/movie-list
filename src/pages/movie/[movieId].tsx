@@ -1,6 +1,7 @@
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { CalendarIcon, StarIcon } from "@heroicons/react/24/solid";
+import { ScrollArea } from "~/components/ui/scroll-area";
 import { api } from "~/utils/api";
 import { parseRuntime } from "~/utils/parseRuntime";
 import { TMDB_IMAGE_URL } from "consts";
@@ -22,8 +23,7 @@ export default function MovieDetails() {
     enabled: !!movieId,
   });
 
-  const { data: lists } = api.list.getAllLists.useQuery();
-  console.log("🚀 ~ MovieDetails ~ lists:", lists);
+  const { data: lists = [] } = api.list.getAllLists.useQuery();
 
   const runtime = parseRuntime(movie?.runtime);
 
@@ -122,15 +122,19 @@ export default function MovieDetails() {
                 Add to other list...
               </DrawerTrigger>
               <DrawerContent>
-                <div className="flex flex-col gap-8 py-12">
-                  {lists?.map((list) => (
-                    <EditWatchedStatusButtons
-                      key={list.id}
-                      listId={String(list.id)}
-                      movieId={movieId}
-                    />
-                  ))}
-                </div>
+                <ScrollArea>
+                  <div className="flex flex-col gap-8 py-8 px-4 max-h-[70vh] mb-12">
+                    {lists
+                      .filter((list) => String(list.id) !== listId)
+                      .map((list) => (
+                        <EditWatchedStatusButtons
+                          key={list.id}
+                          listId={String(list.id)}
+                          movieId={movieId}
+                        />
+                      ))}
+                  </div>
+                </ScrollArea>
               </DrawerContent>
             </Drawer>
 
