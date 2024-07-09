@@ -8,7 +8,7 @@ export default function _Document() {
         <link rel="manifest" href="/manifest.json"></link>
       </Head>
 
-      <body className="bg-slate-900 text-slate-50">
+      <body className="bg-slate-900 dark text-slate-50">
         <Main />
         <NextScript />
       </body>

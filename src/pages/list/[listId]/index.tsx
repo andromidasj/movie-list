@@ -4,6 +4,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { MagnifyingGlassIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import { useDebouncedValue, useLocalStorage } from "@mantine/hooks";
+import Tabs, { type TabEnumType } from "~/components/Tabs";
+import { api } from "~/utils/api";
 import { TMDB_IMAGE_URL } from "consts";
 import Head from "next/head";
 import Image from "next/image";
@@ -11,8 +13,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import urlJoin from "url-join";
-import Tabs, { type TabEnumType } from "~/components/Tabs";
-import { api } from "~/utils/api";
 
 export default function List() {
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function List() {
 
   const [searchVal, setSearchVal] = useState("");
 
-  const [activeTab = 'toWatch', setActiveTab] = useLocalStorage<TabEnumType>({
+  const [activeTab = "toWatch", setActiveTab] = useLocalStorage<TabEnumType>({
     key: "activeTab",
     defaultValue: "toWatch",
   });
@@ -30,7 +30,7 @@ export default function List() {
     defaultValue: "",
   });
 
-  const [debounced] = useDebouncedValue(newSearchQuery || '', 400);
+  const [debounced] = useDebouncedValue(newSearchQuery || "", 400);
 
   const { data: listContents } = api.list.getListContents.useQuery(
     Number(listId),
@@ -45,11 +45,7 @@ export default function List() {
 
   if (!listContents) return <>Loading...</>;
 
-  const filteredMovieList = listContents.movies
-    .filter((movie) => {
-      if (activeTab === "toWatch") return movie.inList;
-      if (activeTab === "watched") return movie.watched;
-    })
+  const filteredMovieListbySearch = listContents.movies
     .filter((movie) =>
       movie.title.toLowerCase().includes(searchVal.toLowerCase())
     )
@@ -70,6 +66,19 @@ export default function List() {
 
       return 0;
     });
+
+  const watchedMovies = filteredMovieListbySearch.filter(
+    (movie) => movie.watched
+  );
+  const listedMovies = filteredMovieListbySearch.filter(
+    (movie) => movie.inList
+  );
+
+  const moviesFilteredByTab =
+    activeTab === "watched" ? watchedMovies : listedMovies;
+
+  const moviesFilteredByOppositeTab =
+    activeTab === "watched" ? listedMovies : watchedMovies;
 
   return (
     <>
@@ -163,7 +172,7 @@ export default function List() {
                     </Link>
                   );
                 })
-              : filteredMovieList.map((movie, index) => (
+              : moviesFilteredByTab.map((movie, index) => (
                   <Link
                     href={{
                       pathname: urlJoin("/movie", String(movie.tmdbId)),
@@ -187,6 +196,19 @@ export default function List() {
                     </h1>
                   </Link>
                 ))}
+
+            {activeTab !== "search" && !!moviesFilteredByOppositeTab.length && (
+              <button
+                className="mt-8 text-center text-sm text-blue-400 col-span-3"
+                onClick={() =>
+                  setActiveTab(activeTab === "watched" ? "toWatch" : "watched")
+                }
+              >
+                {moviesFilteredByOppositeTab.length}{" "}
+                {`movie${moviesFilteredByOppositeTab.length > 1 ? "s" : ""}`} in{" "}
+                {activeTab === "watched" ? "To Watch" : "Watched"}
+              </button>
+            )}
           </div>
         }
 
