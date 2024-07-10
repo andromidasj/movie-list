@@ -69,7 +69,7 @@ export default function MovieDetails() {
             <div className="h-14" />
           )}
 
-          <div className="flex flex-col gap-5 p-5">
+          <div className="flex flex-col gap-5 p-5 pb-12">
             {(movie.contentRating || runtime || !!movie.vote_average) && (
               <div className="flex items-center justify-between text-xs text-slate-400">
                 <div className="flex shrink-0 items-center gap-4">
@@ -164,7 +164,7 @@ export default function MovieDetails() {
                   className="relative rounded-lg bg-black"
                 >
                   <Image
-                    src="/TMDB_logo.png"
+                    src="/tmdb_logo.png"
                     alt="TMDb Logo"
                     fill
                     className="size-full object-contain p-2"
@@ -178,7 +178,7 @@ export default function MovieDetails() {
                     className="relative rounded-lg bg-black"
                   >
                     <Image
-                      src="/IMDB_logo.png"
+                      src="/imdb_logo.png"
                       alt="IMDb Logo"
                       fill
                       className="size-full object-contain"
