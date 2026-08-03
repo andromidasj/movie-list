@@ -8,7 +8,7 @@ export const tmdbMovieSchema = z
       .object({
         id: z.number().optional(),
         name: z.string().optional(),
-        poster_path: z.string().optional(),
+        poster_path: z.string().nullable().optional(),
         backdrop_path: z.string().nullable(),
       })
       .nullable(),

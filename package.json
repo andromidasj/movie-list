@@ -8,7 +8,8 @@
     "postinstall": "npx prisma generate",
     "lint": "next lint",
     "start": "next start",
-    "start-docker": "npx prisma db push --skip-generate && bun start"
+    "start-docker": "npx prisma db push --skip-generate && bun start",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs"
   },
   "dependencies": {
     "@heroicons/react": "2.0.18",
